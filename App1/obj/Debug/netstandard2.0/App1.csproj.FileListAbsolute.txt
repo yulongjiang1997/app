@@ -1,0 +1,14 @@
+E:\项目文件夹\移动端项目\安卓1.0\Android1.0\App1\App1\App1\obj\Debug\netstandard2.0\App.xaml.g.cs
+E:\项目文件夹\移动端项目\安卓1.0\Android1.0\App1\App1\App1\obj\Debug\netstandard2.0\MainPage.xaml.g.cs
+E:\项目文件夹\移动端项目\安卓1.0\Android1.0\App1\App1\App1\obj\Debug\netstandard2.0\App1.csproj.CoreCompileInputs.cache
+E:\项目文件夹\移动端项目\安卓1.0\Android1.0\App1\App1\App1\obj\Debug\netstandard2.0\App1.AssemblyInfoInputs.cache
+E:\项目文件夹\移动端项目\安卓1.0\Android1.0\App1\App1\App1\obj\Debug\netstandard2.0\App1.AssemblyInfo.cs
+E:\项目文件夹\移动端项目\安卓1.0\Android1.0\App1\App1\App1\obj\Debug\netstandard2.0\App1.dll
+E:\项目文件夹\移动端项目\安卓1.0\Android1.0\App1\App1\App1\obj\Debug\netstandard2.0\App1.pdb
+E:\项目文件夹\移动端项目\安卓1.0\Android1.0\App1\App1\App1\bin\Debug\netstandard2.0\App1.deps.json
+E:\项目文件夹\移动端项目\安卓1.0\Android1.0\App1\App1\App1\bin\Debug\netstandard2.0\App1.dll
+E:\项目文件夹\移动端项目\安卓1.0\Android1.0\App1\App1\App1\bin\Debug\netstandard2.0\App1.pdb
+E:\项目文件夹\移动端项目\安卓1.0\Android1.0\App1\App1\App1\obj\Debug\netstandard2.0\XamlC.stamp
+E:\项目文件夹\移动端项目\安卓1.0\Android1.0\App1\App1\App1\obj\Debug\netstandard2.0\Page1.xaml.g.cs
+E:\项目文件夹\移动端项目\安卓1.0\Android1.0\App1\App1\App1\obj\Debug\netstandard2.0\App1.csprojAssemblyReference.cache
+E:\项目文件夹\移动端项目\安卓1.0\Android1.0\App1\App1\App1\bin\Debug\netstandard2.0\BaiduFaceApi.dll

@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App1.MainPage"
+             xmlns:mm="clr-namespace:App1.ViewModel"
+             xmlns:local="clr-namespace:App1">
+    <ContentPage.Content>
+        <Grid BackgroundColor="#242B3D">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <!--<RowDefinition Height="0.18*"></RowDefinition>-->
+                <RowDefinition Height="0.55*"></RowDefinition>
+                <RowDefinition Height="1.35*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <!--<Grid Grid.Row="0"  Grid.ColumnSpan="2" BackgroundColor="#31374d" >
+                <Label Text="Sinovision" HorizontalOptions="Start" FontSize="10" TextColor="#999ca5" Margin="5,0,0,0" VerticalOptions="Center"></Label>
+                <Label Text="2018-11-27 12:28" HorizontalOptions="End" VerticalOptions="Center" FontSize="10" TextColor="#808080"  Margin="0,0,5,0"></Label>
+            </Grid>-->
+            <Grid  Grid.Row="0" Grid.ColumnSpan="2" Padding="5,5,5,0">
+                <Frame CornerRadius="3" BackgroundColor="#2E364D" Padding="0,0,0,0">
+                    <StackLayout Padding="0,0,0,0">
+                        <Label Text="ANNOUNCEMENT" TextColor="#ffffff" VerticalOptions="Start" HorizontalOptions="Start" 
+                               Margin="10,5,0,0" FontSize="10"></Label>
+                        <Label Text="Show content here,Show hgdhghg announcement content here." TextColor="#ffffff" 
+                               VerticalOptions="Start" HorizontalOptions="Start" FontSize="10" Margin="10,0,45,0" BackgroundColor="Red"></Label>
+                    </StackLayout>
+                </Frame>
+            </Grid>
+            <Grid  Grid.Row="1" Grid.ColumnSpan="2"  Padding="5,0,5,0">
+                <Frame CornerRadius="3">
+                    <local:CameraPreview Camera="Rear" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="-20,-20,-20,-20" />
+                </Frame>
+            </Grid>
+            <Grid  Grid.Row="2" Grid.Column="0"  Padding="5,0,5,5">
+                <Frame CornerRadius="3">
+                    <Label Text="12312312312" BackgroundColor="#30384F" TextColor="White" Margin="-20,-20,-20,-20"></Label>
+                </Frame>
+            </Grid>
+            <Grid Grid.Row="2" Grid.Column="1"   Padding="-5,0,5,5">
+                <Frame CornerRadius="3">
+                    <Label Text="123123123123" BackgroundColor="#30384F" TextColor="White"  Margin="-20,-20,-20,-20"></Label>
+                </Frame>
+            </Grid>
+        </Grid>
+
+        <!--<StackLayout>
+            <Image Source="abc.jpg"/>
+        </StackLayout>-->
+    </ContentPage.Content>
+</ContentPage>
