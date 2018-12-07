@@ -12,6 +12,8 @@ using Android.Views;
 using Android.Widget;
 using App1.Droid.BaiduSDKManager.Face.Camera;
 using Java.Nio;
+using App1.Droid.BaiduSDKManager.Manager;
+using FaceDetector = App1.Droid.BaiduSDKManager.Manager.FaceDetector;
 
 namespace App1.Droid.BaiduSDKManager.Face
 {
@@ -24,15 +26,15 @@ namespace App1.Droid.BaiduSDKManager.Face
         /**
          * 相机控制类
          */
-        private ICameraControl<object> cameraControl;
+        private ICameraControl<Camera1Control> cameraControl;
         private Context context;
 
-        public ICameraControl<object> getCameraControl()
+        public ICameraControl<Camera1Control> getCameraControl()
         {
             return cameraControl;
         }
 
-        private ArgbPool argbPool = new ArgbPool();
+        private static  ArgbPool argbPool = new ArgbPool();
 
         private int cameraFaceType = 1;
 
@@ -61,50 +63,58 @@ namespace App1.Droid.BaiduSDKManager.Face
             return nv21;
         }
 
+
+
+        private class OnFrameListenerAnonymousInnerClass : OnFrameListener<byte[]>
+        {
+            public void onPreviewFrame(byte[] data, int rotation, int width, int height)
+            {
+                int[] argb = argbPool.acquire(width, height);
+
+                if (argb == null || argb.Length != width * height)
+                {
+                    argb = new int[width * height];
+                }
+
+                rotation = rotation < 0 ? 360 + rotation : rotation;
+                long starttime = DateTime.Now.Millisecond;
+                FaceDetector.yuvToARGB(data, width, height, argb, rotation, 0);
+
+                // 旋转了90或270度。高宽需要替换
+                if (rotation % 180 == 90)
+                {
+                    int temp = width;
+                    width = height;
+                    height = temp;
+                }
+
+                ImageFrame frame = new ImageFrame();
+                frame.setArgb(argb);
+                frame.setWidth(width);
+                frame.setHeight(height);
+                frame.setPool(argbPool);
+                List<OnFrameAvailableListener> listeners = getListeners();
+                foreach (OnFrameAvailableListener listener in listeners)
+                {
+                    listener.onFrameAvailable(frame);
+                }
+                argbPool.release(argb);
+            }
+            
+        }
+
+
         public CameraImageSource(Context context)
         {
-            //this.context = context;
-            //cameraControl = new Camera1Control(getContext());
-            //cameraControl.setCameraFacing(cameraFaceType);
-            //        cameraControl.setOnFrameListener(new ICameraControl.OnFrameListener<byte[]>() {
-            //        public void onPreviewFrame(byte[] data, int rotation, int width, int height)
-            //        {
-            //            int[] argb = argbPool.acquire(width, height);
-
-            //            if (argb == null || argb.length != width * height)
-            //            {
-            //                argb = new int[width * height];
-            //            }
-
-            //            rotation = rotation < 0 ? 360 + rotation : rotation;
-            //            long starttime = System.currentTimeMillis();
-            //            FaceDetector.yuvToARGB(data, width, height, argb, rotation, 0);
-
-            //            // 旋转了90或270度。高宽需要替换
-            //            if (rotation % 180 == 90)
-            //            {
-            //                int temp = width;
-            //                width = height;
-            //                height = temp;
-            //            }
-
-            //            ImageFrame frame = new ImageFrame();
-            //            frame.setArgb(argb);
-            //            frame.setWidth(width);
-            //            frame.setHeight(height);
-            //            frame.setPool(argbPool);
-            //            ArrayList<OnFrameAvailableListener> listeners = getListeners();
-            //            for (OnFrameAvailableListener listener : listeners) {
-            //            listener.onFrameAvailable(frame);
-            //        }
-            //        argbPool.release(argb);
-            //    }
-            //});
+            this.context = context;
+            cameraControl = new Camera1Control(getContext());
+            cameraControl.setCameraFacing(cameraFaceType);
+            cameraControl.setOnFrameListener(new OnFrameListenerAnonymousInnerClass());
         }
 
         private void addCamera2Control()
         {
-           // cameraControl = new Camera2Control(getContext());
+            // cameraControl = new Camera2Control(getContext());
             //cameraControl.setCameraFacing(cameraFaceType);
             //    cameraControl.setOnFrameListener(new ICameraControl.OnFrameListener<Bitmap>() {
 

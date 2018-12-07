@@ -21,7 +21,7 @@ namespace App1.Droid.BaiduSDKManager.Face
             return new ImageFrame();
         }
 
-        private List<OnFrameAvailableListener> listeners = new List<OnFrameAvailableListener>();
+        private static List<OnFrameAvailableListener> listeners { get; set; } = new List<OnFrameAvailableListener>();
 
         /** 注册监听器，当有图片帧时会回调。*/
         public void addOnFrameAvailableListener(OnFrameAvailableListener listener)
@@ -39,7 +39,7 @@ namespace App1.Droid.BaiduSDKManager.Face
         }
 
         /** 获取监听器列表 */
-        protected List<OnFrameAvailableListener> getListeners()
+        protected static List<OnFrameAvailableListener> getListeners()
         {
             return listeners;
         }

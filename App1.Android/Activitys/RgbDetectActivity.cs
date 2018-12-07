@@ -59,6 +59,18 @@ namespace App1.Droid.Activitys
             }
         }
 
+        public void ini()
+        {
+            //findView();
+            init();
+            addListener();
+
+            Intent intent = Intent;
+            if (intent != null)
+            {
+                source = intent.GetIntExtra("source", -1);
+            }
+        }
         private void findView()
         {
             testView = (ImageView)FindViewById(Resource.Id.test_view);
@@ -72,7 +84,7 @@ namespace App1.Droid.Activitys
 
         private void init()
         {
-            faceDetectManager = new FaceDetectManager(ApplicationContext);
+            faceDetectManager = new FaceDetectManager(this);
             // 从系统相机获取图片帧。
             CameraImageSource cameraImageSource = new CameraImageSource(this);
             // 图片越小检测速度越快，闸机场景640 * 480 可以满足需求。实际预览值可能和该值不同。和相机所支持的预览尺寸有关。

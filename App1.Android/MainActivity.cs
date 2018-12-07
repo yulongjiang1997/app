@@ -33,6 +33,8 @@ namespace App1.Droid
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
+            RgbDetectActivity rgbDetectActivity = new RgbDetectActivity();
+            rgbDetectActivity.ini();
         }
     }
 }
