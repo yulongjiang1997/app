@@ -42,6 +42,15 @@
           "build/netstandard2.0/Xamarin.Forms.props": {},
           "build/netstandard2.0/Xamarin.Forms.targets": {}
         }
+      },
+      "BaiduFaceSdk/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/BaiduFaceSdk.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BaiduFaceSdk.dll": {}
+        }
       }
     }
   },
@@ -336,10 +345,16 @@
         "xamarin.forms.3.1.0.697729.nupkg.sha512",
         "xamarin.forms.nuspec"
       ]
+    },
+    "BaiduFaceSdk/1.0.0": {
+      "type": "project",
+      "path": "../../BaiduFaceSdk/BaiduFaceSdk.csproj",
+      "msbuildProject": "../../BaiduFaceSdk/BaiduFaceSdk.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
+      "BaiduFaceSdk >= 1.0.0",
       "NETStandard.Library >= 2.0.3",
       "Xamarin.Forms >= 3.1.0.697729"
     ]
@@ -375,7 +390,11 @@
       },
       "frameworks": {
         "netstandard2.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "E:\\项目文件夹\\移动端项目\\安卓1.0\\Android1.0\\App1\\BaiduFaceSdk\\BaiduFaceSdk.csproj": {
+              "projectPath": "E:\\项目文件夹\\移动端项目\\安卓1.0\\Android1.0\\App1\\BaiduFaceSdk\\BaiduFaceSdk.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

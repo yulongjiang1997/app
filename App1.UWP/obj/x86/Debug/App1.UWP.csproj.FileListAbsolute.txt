@@ -298,3 +298,4 @@ E:\项目文件夹\移动端项目\安卓1.0\Android1.0\App1\App1\App1.UWP\obj\x
 E:\项目文件夹\移动端项目\安卓1.0\Android1.0\App1\App1\App1.UWP\obj\x86\Debug\MultipleQualifiersPerDimensionFound.txt
 E:\项目文件夹\移动端项目\安卓1.0\Android1.0\App1\App1\App1.UWP\obj\x86\Debug\Xamarin.Forms.Platform.UAP.pri.xml
 E:\项目文件夹\移动端项目\安卓1.0\Android1.0\App1\App1\App1.UWP\obj\x86\Debug\ProjectArchitectures.txt
+E:\项目文件夹\移动端项目\安卓1.0\Android1.0\App1\App1\App1.UWP\bin\x86\Debug\BaiduFaceApi.dll

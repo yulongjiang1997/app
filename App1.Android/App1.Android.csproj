@@ -30,6 +30,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <BundleAssemblies>false</BundleAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -52,7 +55,7 @@
     <PackageReference Include="BottomNavigationBar">
       <Version>1.4.0.3</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="3.1.0.697729" />
+    <PackageReference Include="Xamarin.Forms" Version="3.4.0.1008975" />
     <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2.1" />
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="27.0.2.1" />
     <PackageReference Include="Xamarin.Android.Support.v4" Version="27.0.2.1" />
@@ -60,6 +63,51 @@
     <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="27.0.2.1" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activitys\LivenessSettingActivity.cs" />
+    <Compile Include="Activitys\Preview.cs" />
+    <Compile Include="Activitys\RgbDetectActivity.cs" />
+    <Compile Include="Activitys\RgbIrLivenessActivity.cs" />
+    <Compile Include="BaiduSDKManager\DB\DBHelper.cs" />
+    <Compile Include="BaiduSDKManager\Entity\Feature.cs" />
+    <Compile Include="BaiduSDKManager\Entity\Group.cs" />
+    <Compile Include="BaiduSDKManager\Entity\User.cs" />
+    <Compile Include="BaiduSDKManager\Face\FileImageSource.cs" />
+    <Compile Include="BaiduSDKManager\Manager\SdkInitListener.cs" />
+    <Compile Include="BaiduSDKManager\Ui\Activation.cs" />
+    <Compile Include="BaiduSDKManager\Entity\ARGBImg.cs" />
+    <Compile Include="BaiduSDKManager\Face\ArgbPool.cs" />
+    <Compile Include="BaiduSDKManager\DB\DBManager.cs" />
+    <Compile Include="BaiduSDKManager\Face\FaceDetectManager.cs" />
+    <Compile Include="BaiduSDKManager\Manager\FaceDetector.cs" />
+    <Compile Include="BaiduSDKManager\Manager\FaceEnvironment.cs" />
+    <Compile Include="BaiduSDKManager\Manager\FaceFeature.cs" />
+    <Compile Include="BaiduSDKManager\Face\FaceFilter.cs" />
+    <Compile Include="BaiduSDKManager\Manager\FaceLiveness.cs" />
+    <Compile Include="BaiduSDKManager\Manager\FaceSDKManager.cs" />
+    <Compile Include="Activitys\RegActivity.cs" />
+    <Compile Include="BaiduSDKManager\Face\CameraImageSource.cs" />
+    <Compile Include="BaiduSDKManager\Face\Camera\Camera1Control.cs" />
+    <Compile Include="BaiduSDKManager\Face\Camera\Camera2Control.cs" />
+    <Compile Include="BaiduSDKManager\Face\Camera\ICameraControl.cs" />
+    <Compile Include="BaiduSDKManager\Face\FaceCropper.cs" />
+    <Compile Include="BaiduSDKManager\Face\FaceProcessor.cs" />
+    <Compile Include="BaiduSDKManager\Face\ImageSource.cs" />
+    <Compile Include="BaiduSDKManager\Face\LogUtil.cs" />
+    <Compile Include="BaiduSDKManager\Face\OnFrameAvailableListener.cs" />
+    <Compile Include="BaiduSDKManager\Face\PermissionCallback.cs" />
+    <Compile Include="BaiduSDKManager\Face\PreviewView.cs" />
+    <Compile Include="BaiduSDKManager\Utils\FileUitls.cs" />
+    <Compile Include="Activitys\Utils\GlobalFaceTypeModel.cs" />
+    <Compile Include="BaiduSDKManager\Callback\ILivenessCallBack.cs" />
+    <Compile Include="BaiduSDKManager\ImageFrame.cs" />
+    <Compile Include="Activitys\Utils\IOUtil.cs" />
+    <Compile Include="BaiduSDKManager\Entity\LivenessModel.cs" />
+    <Compile Include="BaiduSDKManager\Pools.cs" />
+    <Compile Include="BaiduSDKManager\Utils\ImageUtils.cs" />
+    <Compile Include="BaiduSDKManager\Utils\LogUtils.cs" />
+    <Compile Include="BaiduSDKManager\Utils\NetRequest.cs" />
+    <Compile Include="BaiduSDKManager\Utils\PreferencesUtil.cs" />
+    <Compile Include="BaiduSDKManager\Utils\ZipUtil.cs" />
     <Compile Include="CameraPreview.cs" />
     <Compile Include="CameraPreviewRenderer.cs" />
     <Compile Include="MainActivity.cs" />
@@ -90,6 +138,7 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="BaiduSDKManager\Api\" />
     <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
@@ -116,6 +165,29 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\Test.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_rgb_detect.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\liveness_setting_layout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_reg.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\avatar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_rgb_ir_liveness.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

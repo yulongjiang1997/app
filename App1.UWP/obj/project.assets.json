@@ -312,6 +312,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "BaiduFaceSdk": "1.0.0",
           "Xamarin.Forms": "3.1.0.697729"
         },
         "compile": {
@@ -319,6 +320,15 @@
         },
         "runtime": {
           "bin/placeholder/App1.dll": {}
+        }
+      },
+      "BaiduFaceSdk/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/BaiduFaceSdk.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BaiduFaceSdk.dll": {}
         }
       }
     },
@@ -808,6 +818,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "BaiduFaceSdk": "1.0.0",
           "Xamarin.Forms": "3.1.0.697729"
         },
         "compile": {
@@ -815,6 +826,15 @@
         },
         "runtime": {
           "bin/placeholder/App1.dll": {}
+        }
+      },
+      "BaiduFaceSdk/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/BaiduFaceSdk.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BaiduFaceSdk.dll": {}
         }
       }
     },
@@ -1305,6 +1325,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "BaiduFaceSdk": "1.0.0",
           "Xamarin.Forms": "3.1.0.697729"
         },
         "compile": {
@@ -1312,6 +1333,15 @@
         },
         "runtime": {
           "bin/placeholder/App1.dll": {}
+        }
+      },
+      "BaiduFaceSdk/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/BaiduFaceSdk.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BaiduFaceSdk.dll": {}
         }
       }
     },
@@ -1626,6 +1656,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "BaiduFaceSdk": "1.0.0",
           "Xamarin.Forms": "3.1.0.697729"
         },
         "compile": {
@@ -1633,6 +1664,15 @@
         },
         "runtime": {
           "bin/placeholder/App1.dll": {}
+        }
+      },
+      "BaiduFaceSdk/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/BaiduFaceSdk.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BaiduFaceSdk.dll": {}
         }
       }
     },
@@ -2122,6 +2162,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "BaiduFaceSdk": "1.0.0",
           "Xamarin.Forms": "3.1.0.697729"
         },
         "compile": {
@@ -2129,6 +2170,15 @@
         },
         "runtime": {
           "bin/placeholder/App1.dll": {}
+        }
+      },
+      "BaiduFaceSdk/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/BaiduFaceSdk.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BaiduFaceSdk.dll": {}
         }
       }
     },
@@ -2619,6 +2669,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "BaiduFaceSdk": "1.0.0",
           "Xamarin.Forms": "3.1.0.697729"
         },
         "compile": {
@@ -2626,6 +2677,15 @@
         },
         "runtime": {
           "bin/placeholder/App1.dll": {}
+        }
+      },
+      "BaiduFaceSdk/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/BaiduFaceSdk.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BaiduFaceSdk.dll": {}
         }
       }
     },
@@ -3115,6 +3175,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "BaiduFaceSdk": "1.0.0",
           "Xamarin.Forms": "3.1.0.697729"
         },
         "compile": {
@@ -3122,6 +3183,15 @@
         },
         "runtime": {
           "bin/placeholder/App1.dll": {}
+        }
+      },
+      "BaiduFaceSdk/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/BaiduFaceSdk.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BaiduFaceSdk.dll": {}
         }
       }
     },
@@ -3612,6 +3682,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "BaiduFaceSdk": "1.0.0",
           "Xamarin.Forms": "3.1.0.697729"
         },
         "compile": {
@@ -3619,6 +3690,15 @@
         },
         "runtime": {
           "bin/placeholder/App1.dll": {}
+        }
+      },
+      "BaiduFaceSdk/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/BaiduFaceSdk.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BaiduFaceSdk.dll": {}
         }
       }
     }
@@ -7441,6 +7521,11 @@
       "type": "project",
       "path": "../App1/App1.csproj",
       "msbuildProject": "../App1/App1.csproj"
+    },
+    "BaiduFaceSdk/1.0.0": {
+      "type": "project",
+      "path": "../../BaiduFaceSdk/BaiduFaceSdk.csproj",
+      "msbuildProject": "../../BaiduFaceSdk/BaiduFaceSdk.csproj"
     }
   },
   "projectFileDependencyGroups": {

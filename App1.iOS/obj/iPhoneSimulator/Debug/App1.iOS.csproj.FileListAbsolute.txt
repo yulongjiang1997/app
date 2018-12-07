@@ -55,3 +55,4 @@ E:\项目文件夹\移动端项目\安卓1.0\Android1.0\App1\App1\App1.iOS\obj\i
 E:\项目文件夹\移动端项目\安卓1.0\Android1.0\App1\App1\App1.iOS\obj\iPhoneSimulator\Debug\App1.iOS.csproj.CopyComplete
 E:\项目文件夹\移动端项目\安卓1.0\Android1.0\App1\App1\App1.iOS\obj\iPhoneSimulator\Debug\App1.iOS.exe
 E:\项目文件夹\移动端项目\安卓1.0\Android1.0\App1\App1\App1.iOS\obj\iPhoneSimulator\Debug\App1.iOS.pdb
+E:\项目文件夹\移动端项目\安卓1.0\Android1.0\App1\App1\App1.iOS\bin\iPhoneSimulator\Debug\BaiduFaceApi.dll
