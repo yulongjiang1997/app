@@ -30,6 +30,7 @@ namespace App1.Droid.BaiduSDKManager.Manager
         private static SdkInitListener SsdkInitListener { get; set; }
         public static volatile int initStatus = SDK_UNACTIVATION;
         private static readonly Handler handler = new Handler(Looper.MainLooper);
+        
 
         private FaceSDKManager()
         {

@@ -16,7 +16,7 @@ using Java.Util.Concurrent.Atomic;
 
 namespace App1.Droid.BaiduSDKManager.Face.Camera
 {
-    public class Camera1Control : ICameraControl<Camera1Control>
+    public class Camera1Control<T> : ICameraControl<T>
     {
 
         private static SparseIntArray ORIENTATIONS = new SparseIntArray();
@@ -331,10 +331,10 @@ namespace App1.Droid.BaiduSDKManager.Face.Camera
             }
         }
 
-        private OnFrameListener<Camera1Control> onFrameListener;
+        private OnFrameListener<T> onFrameListener;
 
 
-        public void setOnFrameListener(OnFrameListener<Camera1Control> listener)
+        public void setOnFrameListener(OnFrameListener<T> listener)
         {
             this.onFrameListener = listener;
         }

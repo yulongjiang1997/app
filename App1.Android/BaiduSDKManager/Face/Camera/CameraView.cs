@@ -44,7 +44,7 @@ namespace App1.Droid.BaiduSDKManager.Face.Camera
 
         }
 
-        private CameraViewTakePictureCallback cameraViewTakePictureCallback = new CameraViewTakePictureCallback();
+       // private CameraViewTakePictureCallback cameraViewTakePictureCallback = new CameraViewTakePictureCallback();
 
         private ICameraControl<CameraView> cameraControl;
 
@@ -103,11 +103,11 @@ namespace App1.Droid.BaiduSDKManager.Face.Camera
         {
             if (Build.VERSION.SdkInt >= Build.VERSION_CODES.Lollipop)
             {
-                cameraControl = new Camera2Control(Context);
+                cameraControl = new Camera2Control<CameraView>(Context);
             }
             else
             {
-                cameraControl = new Camera1Control(Context);
+                cameraControl = new Camera1Control<CameraView>(Context);
             }
             displayView = cameraControl.getDisplayView();
             AddView(displayView);

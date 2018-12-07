@@ -67,10 +67,13 @@
     <Compile Include="Activitys\Preview.cs" />
     <Compile Include="Activitys\RgbDetectActivity.cs" />
     <Compile Include="Activitys\RgbIrLivenessActivity.cs" />
+    <Compile Include="Activitys\RgbIrVideoAttributeActivity.cs" />
+    <Compile Include="Activitys\RgbVideoAttributeTrackActivity.cs" />
     <Compile Include="BaiduSDKManager\DB\DBHelper.cs" />
     <Compile Include="BaiduSDKManager\Entity\Feature.cs" />
     <Compile Include="BaiduSDKManager\Entity\Group.cs" />
     <Compile Include="BaiduSDKManager\Entity\User.cs" />
+    <Compile Include="BaiduSDKManager\Face\Camera\CameraView.cs" />
     <Compile Include="BaiduSDKManager\Face\FileImageSource.cs" />
     <Compile Include="BaiduSDKManager\Manager\SdkInitListener.cs" />
     <Compile Include="BaiduSDKManager\Ui\Activation.cs" />
@@ -186,6 +189,16 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_rgb_ir_liveness.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_rgb_ir_video_attribute.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_attribute_track.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

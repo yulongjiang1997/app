@@ -26,7 +26,7 @@ namespace App1.Droid.BaiduSDKManager.Face
         /** 注册监听器，当有图片帧时会回调。*/
         public void addOnFrameAvailableListener(OnFrameAvailableListener listener)
         {
-            this.listeners.Add(listener);
+            listeners.Add(listener);
         }
 
         /** 删除监听器*/
@@ -34,7 +34,7 @@ namespace App1.Droid.BaiduSDKManager.Face
         {
             if (listener != null)
             {
-                this.listeners.Remove(listener);
+                listeners.Remove(listener);
             }
         }
 

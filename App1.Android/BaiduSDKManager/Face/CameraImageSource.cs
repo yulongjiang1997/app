@@ -65,7 +65,7 @@ namespace App1.Droid.BaiduSDKManager.Face
 
 
 
-        private class OnFrameListenerAnonymousInnerClass : OnFrameListener<byte[]>
+        private class OnFrameListenerAnonymousInnerClass<T> : OnFrameListener<byte[]>
         {
             public void onPreviewFrame(byte[] data, int rotation, int width, int height)
             {
@@ -109,7 +109,7 @@ namespace App1.Droid.BaiduSDKManager.Face
             this.context = context;
             cameraControl = new Camera1Control(getContext());
             cameraControl.setCameraFacing(cameraFaceType);
-            cameraControl.setOnFrameListener(new OnFrameListenerAnonymousInnerClass());
+            //cameraControl.setOnFrameListener(new OnFrameListenerAnonymousInnerClass<Camera1Control>());
         }
 
         private void addCamera2Control()

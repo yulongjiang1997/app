@@ -16,7 +16,7 @@ using Java.Util.Concurrent;
 
 namespace App1.Droid.BaiduSDKManager.Face.Camera
 {
-    public class Camera2Control : ICameraControl<Camera2Control>
+    public class Camera2Control<T> : ICameraControl<T>
     {
 
         /**
@@ -136,7 +136,7 @@ namespace App1.Droid.BaiduSDKManager.Face.Camera
         }
 
 
-        public void setOnFrameListener(OnFrameListener<Camera2Control> listener)
+        public void setOnFrameListener(OnFrameListener<T> listener)
         {
             this.onFrameListener = listener;
         }
@@ -148,7 +148,7 @@ namespace App1.Droid.BaiduSDKManager.Face.Camera
             this.preferredHeight = Java.Lang.Math.Min(width, height);
         }
 
-        private OnFrameListener<Camera2Control> onFrameListener;
+        private OnFrameListener<T> onFrameListener;
 
 
         public View getDisplayView()
