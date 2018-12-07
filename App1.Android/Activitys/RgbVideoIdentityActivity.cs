@@ -10,11 +10,13 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using App1.Droid.Activitys.Utils;
 using App1.Droid.BaiduSDKManager;
 using App1.Droid.BaiduSDKManager.DB;
 using App1.Droid.BaiduSDKManager.Face;
 using App1.Droid.BaiduSDKManager.Face.Camera;
 using App1.Droid.BaiduSDKManager.Manager;
+using App1.Droid.BaiduSDKManager.Utils;
 using Com.Baidu.Idl.Facesdk;
 using Java.Lang;
 using Java.Util.Concurrent;
@@ -229,9 +231,9 @@ namespace App1.Droid.Activitys
                 return;
             }
 
-            es.submit(new Runnable(() =>
+            es.Submit(new Runnable(() =>
             {
-                if (faceInfos == null || faceInfos.length == 0)
+                if (faceInfos == null || faceInfos.Length == 0)
                 {
                     return;
                 }
@@ -255,209 +257,204 @@ namespace App1.Droid.Activitys
                 }
             }));
         }
-
         private float rgbLiveness(ImageFrame imageFrame, FaceInfo faceInfo)
         {
-
-            long starttime = System.currentTimeMillis();
+            long starttime = DateTime.Now.Millisecond;
             float rgbScore = FaceLiveness.getInstance().rgbLiveness(imageFrame.getArgb(), imageFrame
-                  .getWidth(), imageFrame.getHeight(), faceInfo.landmarks);
-            long duration = System.currentTimeMillis() - starttime;
+                  .getWidth(), imageFrame.getHeight(), faceInfo.Landmarks.ToArray());
+            long duration = DateTime.Now.Millisecond - starttime;
 
-            runOnUiThread(new Runnable() {
+            RunOnUiThread(new Runnable(() =>
+            {
+                rgbLivenssDurationTv.Visibility = (ViewStates.Visible);
+                rgbLivenessScoreTv.Visibility = (ViewStates.Visible);
+                rgbLivenssDurationTv.Text = ("RGB活体耗时：" + duration);
+                rgbLivenessScoreTv.Text = ("RGB活体得分：" + rgbScore);
+            }));
+
+            return rgbScore;
+        }
+
+        private void identity(ImageFrame imageFrame, FaceInfo faceInfo)
+        {
+
+
+            float raw = Java.Lang.Math.Abs(faceInfo.HeadPose[0]);
+            float patch = Java.Lang.Math.Abs(faceInfo.HeadPose[1]);
+            float roll = Java.Lang.Math.Abs(faceInfo.HeadPose[2]);
+            // 人脸的三个角度大于20不进行识别
+            if (raw > 20 || patch > 20 || roll > 20)
+            {
+                return;
+            }
+
+            identityStatus = IDENTITYING;
+
+            long starttime = DateTime.Now.Millisecond;
+            int[] argb = imageFrame.getArgb();
+            int rows = imageFrame.getHeight();
+            int cols = imageFrame.getWidth();
+            int[] landmarks = faceInfo.Landmarks.ToArray();
+
+            int type = PreferencesUtil.getInt(GlobalFaceTypeModel.TYPE_MODEL, GlobalFaceTypeModel.RECOGNIZE_LIVE);
+            IdentifyRet identifyRet = null;
+            if (type == GlobalFaceTypeModel.RECOGNIZE_LIVE)
+            {
+                identifyRet = FaceApi.getInstance().identity(argb, rows, cols, landmarks, groupId);
+            }
+            else if (type == GlobalFaceTypeModel.RECOGNIZE_ID_PHOTO)
+            {
+                identifyRet = FaceApi.getInstance().identityForIDPhoto(argb, rows, cols, landmarks, groupId);
+            }
+            if (identifyRet != null)
+            {
+                displayUserOfMaxScore(identifyRet.getUserId(), identifyRet.getScore());
+            }
+            identityStatus = IDENTITY_IDLE;
+            displayTip("特征抽取对比耗时:" + (DateTime.Now.Millisecond - starttime), featureDurationTv);
+        }
+
+        private void append(Map<string, float> userId2Score, string userId, float score)
+        {
+            if (userId2Score.size() <= 5)
+            {
+                userId2Score.put(userId, score);
+                return;
+            }
+
+            userId2Score.put(userId, score);
+            Iterator iterator = userId2Score.entrySet().iterator();
+            string min = "";
+            float minVal = 0;
+            while (iterator.hasNext())
+            {
+                Map.Entry<string, float> entry = (Map.Entry<string, float>)iterator.next();
+                if (TextUtils.isEmpty(min))
+                {
+                    min = entry.getKey();
+                    minVal = entry.getValue();
+                    continue;
+                }
+                float scoreTmp = entry.getValue();
+                if (scoreTmp < minVal)
+                {
+                    min = entry.getKey();
+                    minVal = entry.getValue();
+                }
+            }
+            userId2Score.remove(min);
+        }
+
+        public Map<string, float> sortMapByValue(Map<string, float> oriMap, string userId, int score)
+        {
+            if (oriMap == null || oriMap.isEmpty())
+            {
+                return null;
+            }
+            Map<string, float> sortedMap = new LinkedHashMap<string, float>();
+            List<Map.Entry<string, float>> entryList = new ArrayList<Map.Entry<string, float>>(oriMap.entrySet());
+            Collections.sort(entryList, new MapValueComparator());
+
+            Iterator<Map.Entry<string, float>> iter = entryList.iterator();
+            Map.Entry<string, float> tmpEntry = null;
+            while (iter.hasNext())
+            {
+                tmpEntry = iter.next();
+                sortedMap.put(tmpEntry.getKey(), tmpEntry.getValue());
+            }
+            return sortedMap;
+        }
+
+        private void displayUserOfMaxScore(string userId, float score)
+        {
+
+            handler.post(new Runnable() {
             @Override
             public void run()
             {
-                rgbLivenssDurationTv.setVisibility(View.VISIBLE);
-                rgbLivenessScoreTv.setVisibility(View.VISIBLE);
-                rgbLivenssDurationTv.setText("RGB活体耗时：" + duration);
-                rgbLivenessScoreTv.setText("RGB活体得分：" + rgbScore);
+
+                if (score < 80)
+                {
+                    scoreTv.setText("");
+                    matchUserTv.setText("");
+                    matchAvatorIv.setImageBitmap(null);
+                    return;
+                }
+
+                if (userIdOfMaxScore.equals(userId))
+                {
+                    if (score < maxScore)
+                    {
+                        scoreTv.setText("" + score);
+                    }
+                    else
+                    {
+                        maxScore = score;
+                        userOfMaxSocre.setText("userId：" + userId + "\nscore：" + score);
+                        scoreTv.setText(String.valueOf(maxScore));
+                    }
+                    if (matchUserTv.getText().toString().length() > 0)
+                    {
+                        return;
+                    }
+                }
+                else
+                {
+                    userIdOfMaxScore = userId;
+                    maxScore = score;
+                }
+
+
+                scoreTv.setText(String.valueOf(maxScore));
+                User user = FaceApi.getInstance().getUserInfo(groupId, userId);
+                if (user == null)
+                {
+                    return;
+                }
+                matchUserTv.setText(user.getUserInfo());
+                List<Feature> featureList = user.getFeatureList();
+                if (featureList != null && featureList.size() > 0)
+                {
+                    // featureTv.setText(new String(featureList.get(0).getFeature()));
+                    File faceDir = FileUitls.getFaceDirectory();
+                    if (faceDir != null && faceDir.exists())
+                    {
+                        File file = new File(faceDir, featureList.get(0).getImageName());
+                        if (file != null && file.exists())
+                        {
+                            Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                            matchAvatorIv.setImageBitmap(bitmap);
+                        }
+                    }
+                }
+                //                List<Feature>  featureList = DBManager.getInstance().queryFeatureByUeserId(userId);
+                //                if (featureList != null && featureList.size() > 0) {
+                //                    File faceDir = FileUitls.getFaceDirectory();
+                //                    if (faceDir != null && faceDir.exists()) {
+                //                        File file = new File(faceDir, featureList.get(0).getImageName());
+                //                        if (file != null && file.exists()) {
+                //                            Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                //                            testView.setImageBitmap(bitmap);
+                //                        }
+                //                    }
+                //                }
             }
         });
-
-        return rgbScore;
     }
 
-    private void identity(ImageFrame imageFrame, FaceInfo faceInfo)
+    private void toast(String text)
     {
-
-
-        float raw = Math.abs(faceInfo.headPose[0]);
-        float patch = Math.abs(faceInfo.headPose[1]);
-        float roll = Math.abs(faceInfo.headPose[2]);
-        // 人脸的三个角度大于20不进行识别
-        if (raw > 20 || patch > 20 || roll > 20)
-        {
-            return;
-        }
-
-        identityStatus = IDENTITYING;
-
-        long starttime = System.currentTimeMillis();
-        int[] argb = imageFrame.getArgb();
-        int rows = imageFrame.getHeight();
-        int cols = imageFrame.getWidth();
-        int[] landmarks = faceInfo.landmarks;
-
-        int type = PreferencesUtil.getInt(GlobalFaceTypeModel.TYPE_MODEL, GlobalFaceTypeModel.RECOGNIZE_LIVE);
-        IdentifyRet identifyRet = null;
-        if (type == GlobalFaceTypeModel.RECOGNIZE_LIVE)
-        {
-            identifyRet = FaceApi.getInstance().identity(argb, rows, cols, landmarks, groupId);
-        }
-        else if (type == GlobalFaceTypeModel.RECOGNIZE_ID_PHOTO)
-        {
-            identifyRet = FaceApi.getInstance().identityForIDPhoto(argb, rows, cols, landmarks, groupId);
-        }
-        if (identifyRet != null)
-        {
-            displayUserOfMaxScore(identifyRet.getUserId(), identifyRet.getScore());
-        }
-        identityStatus = IDENTITY_IDLE;
-        displayTip("特征抽取对比耗时:" + (System.currentTimeMillis() - starttime), featureDurationTv);
-    }
-
-    private void append(Map<String, Float> userId2Score, String userId, float score)
-    {
-        if (userId2Score.size() <= 5)
-        {
-            userId2Score.put(userId, score);
-            return;
-        }
-
-        userId2Score.put(userId, score);
-        Iterator iterator = userId2Score.entrySet().iterator();
-        String min = "";
-        float minVal = 0;
-        while (iterator.hasNext())
-        {
-            Map.Entry<String, Float> entry = (Map.Entry<String, Float>)iterator.next();
-            if (TextUtils.isEmpty(min))
-            {
-                min = entry.getKey();
-                minVal = entry.getValue();
-                continue;
-            }
-            float scoreTmp = entry.getValue();
-            if (scoreTmp < minVal)
-            {
-                min = entry.getKey();
-                minVal = entry.getValue();
-            }
-        }
-        userId2Score.remove(min);
-    }
-
-    public Map<String, Float> sortMapByValue(Map<String, Float> oriMap, String userId, int score)
-    {
-        if (oriMap == null || oriMap.isEmpty())
-        {
-            return null;
-        }
-        Map<String, Float> sortedMap = new LinkedHashMap<String, Float>();
-        List<Map.Entry<String, Float>> entryList = new ArrayList<Map.Entry<String, Float>>(oriMap.entrySet());
-        Collections.sort(entryList, new MapValueComparator());
-
-        Iterator<Map.Entry<String, Float>> iter = entryList.iterator();
-        Map.Entry<String, Float> tmpEntry = null;
-        while (iter.hasNext())
-        {
-            tmpEntry = iter.next();
-            sortedMap.put(tmpEntry.getKey(), tmpEntry.getValue());
-        }
-        return sortedMap;
-    }
-
-    private void displayUserOfMaxScore(String userId, float score)
-    {
-
         handler.post(new Runnable() {
             @Override
             public void run()
         {
-
-            if (score < 80)
-            {
-                scoreTv.setText("");
-                matchUserTv.setText("");
-                matchAvatorIv.setImageBitmap(null);
-                return;
-            }
-
-            if (userIdOfMaxScore.equals(userId))
-            {
-                if (score < maxScore)
-                {
-                    scoreTv.setText("" + score);
-                }
-                else
-                {
-                    maxScore = score;
-                    userOfMaxSocre.setText("userId：" + userId + "\nscore：" + score);
-                    scoreTv.setText(String.valueOf(maxScore));
-                }
-                if (matchUserTv.getText().toString().length() > 0)
-                {
-                    return;
-                }
-            }
-            else
-            {
-                userIdOfMaxScore = userId;
-                maxScore = score;
-            }
-
-
-            scoreTv.setText(String.valueOf(maxScore));
-            User user = FaceApi.getInstance().getUserInfo(groupId, userId);
-            if (user == null)
-            {
-                return;
-            }
-            matchUserTv.setText(user.getUserInfo());
-            List<Feature> featureList = user.getFeatureList();
-            if (featureList != null && featureList.size() > 0)
-            {
-                // featureTv.setText(new String(featureList.get(0).getFeature()));
-                File faceDir = FileUitls.getFaceDirectory();
-                if (faceDir != null && faceDir.exists())
-                {
-                    File file = new File(faceDir, featureList.get(0).getImageName());
-                    if (file != null && file.exists())
-                    {
-                        Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
-                        matchAvatorIv.setImageBitmap(bitmap);
-                    }
-                }
-            }
-            //                List<Feature>  featureList = DBManager.getInstance().queryFeatureByUeserId(userId);
-            //                if (featureList != null && featureList.size() > 0) {
-            //                    File faceDir = FileUitls.getFaceDirectory();
-            //                    if (faceDir != null && faceDir.exists()) {
-            //                        File file = new File(faceDir, featureList.get(0).getImageName());
-            //                        if (file != null && file.exists()) {
-            //                            Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
-            //                            testView.setImageBitmap(bitmap);
-            //                        }
-            //                    }
-            //                }
+            Toast.makeText(RgbVideoIdentityActivity.this, text, Toast.LENGTH_LONG).show();
         }
     });
     }
 
-private void toast(String text)
-{
-    handler.post(new Runnable() {
-            @Override
-            public void run()
-    {
-        Toast.makeText(RgbVideoIdentityActivity.this, text, Toast.LENGTH_LONG).show();
-    }
-});
-    }
 
-
-    private void displayTip(String text, TextView textView)
+private void displayTip(String text, TextView textView)
 {
     handler.post(new Runnable() {
             @Override

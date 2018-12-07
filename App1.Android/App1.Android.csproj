@@ -69,6 +69,7 @@
     <Compile Include="Activitys\RgbIrLivenessActivity.cs" />
     <Compile Include="Activitys\RgbIrVideoAttributeActivity.cs" />
     <Compile Include="Activitys\RgbVideoAttributeTrackActivity.cs" />
+    <Compile Include="Activitys\RgbVideoIdentityActivity.cs" />
     <Compile Include="BaiduSDKManager\DB\DBHelper.cs" />
     <Compile Include="BaiduSDKManager\Entity\Feature.cs" />
     <Compile Include="BaiduSDKManager\Entity\Group.cs" />
